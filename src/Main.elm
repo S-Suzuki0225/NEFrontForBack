@@ -485,7 +485,7 @@ readyCardView rready =
                 , error = error
                 , disabled = not isReady
                 }
-            , p [ class "text-sm text-slate-400" ] [ text "/pre-register" ]
+            , p [ class "text-sm text-slate-400" ] [ text "/users/pre-register" ]
             ]
         , textInputView
             { value = name
@@ -534,7 +534,7 @@ preRegisteredCardView { token, portNum } isRegisterStarted =
                 , error = Nothing
                 , disabled = True
                 }
-            , p [ class "text-sm text-slate-400" ] [ text "/register" ]
+            , p [ class "text-sm text-slate-400" ] [ text "/users/register" ]
             ]
         , if isRegisterStarted then
             text ""
@@ -657,7 +657,7 @@ preRegister r portNum name =
             String.concat
                 [ "http://localhost:"
                 , String.fromInt portNum
-                , "/pre-register"
+                , "/users/pre-register"
                 ]
         , body = Http.jsonBody <| Json.Encode.object [ ( "name", Json.Encode.string name ) ]
         , expect = Http.expectJson GetPreRegisteredResult <| Json.Decode.field "registeration_token" Json.Decode.string
@@ -671,7 +671,7 @@ register r { token, portNum } =
             String.concat
                 [ "http://localhost:"
                 , String.fromInt portNum
-                , "/register"
+                , "/users/register"
                 ]
         , body = Http.jsonBody <| Json.Encode.object [ ( "registeration_token", Json.Encode.string token ) ]
         , expect = Http.expectString GetRegisteredResult
